@@ -101,6 +101,8 @@ def download(session):
 
 def pep(session):
     response = get_response(session, PEP_ZERO_URL)
+    if response is None:
+        return None
     soup = BeautifulSoup(response.text, features='lxml')
     numerical_index = find_tag(soup, 'section', {'id': 'numerical-index'})
     tbody = find_tag(numerical_index, 'tbody')
@@ -122,6 +124,8 @@ def pep(session):
         pep_link_short = pep.find('a')['href']
         pep_link_full = urljoin(PEP_ZERO_URL, pep_link_short)
         response = get_response(session, pep_link_full)
+        if response is None:
+            continue
         soup = BeautifulSoup(response.text, features='lxml')
         dl_table = find_tag(soup, 'dl', {'class': 'rfc2822 field-list simple'})
         status_line = dl_table.find(string='Status')
