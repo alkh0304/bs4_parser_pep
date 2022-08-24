@@ -118,7 +118,7 @@ def pep(session):
         else:
             status_long = []
             logging.info(
-                f'\nВ списке есть неверно указанный статус: {status_short}\n'
+                f'В списке есть неверно указанный статус: {status_short}'
                 f'В строке: {pep}'
             )
         pep_link_short = pep.find('a')['href']
@@ -134,9 +134,8 @@ def pep(session):
             status_page = status_parent.next_sibling.next_sibling.string
             if status_page not in status_long:
                 logging.info(
-                    '\nСтатусы не совпали:\n'
-                    f'Ссылка на PEP: {pep_link_full}\n'
-                    f'Статус на странице - {status_page}\n'
+                    f'Несовпали статусы PEP: {pep_link_full}'
+                    f'Статус на странице - {status_page}'
                     f'Статус в списке - {status_long}'
                 )
             if status_page in status_count:
@@ -145,7 +144,7 @@ def pep(session):
                 status_count[status_page] = 1
         else:
             logging.error(
-                f'\nНа странице PEP {pep_link_full}\n'
+                f'На странице PEP {pep_link_full}'
                 'В таблице нет строки статуса.'
             )
             continue
