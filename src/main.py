@@ -1,16 +1,14 @@
 import logging
 import re
-import requests_cache
-
-from bs4 import BeautifulSoup
-from tqdm import tqdm
 from urllib.parse import urljoin
 
+import requests_cache
+from bs4 import BeautifulSoup
+from tqdm import tqdm
+
 from configs import configure_argument_parser, configure_logging
-from constants import (
-    BASE_DIR, EXPECTED_STATUS, MAIN_DOC_URL, PEP_ZERO_URL,
-    WHATS_NEW_URL, DOWNLOADS_URL
-)
+from constants import (BASE_DIR, DOWNLOADS_URL, EXPECTED_STATUS, MAIN_DOC_URL,
+                       PEP_ZERO_URL, WHATS_NEW_URL)
 from exceptions import ParserFindTagException
 from outputs import control_output
 from utils import find_tag, get_response

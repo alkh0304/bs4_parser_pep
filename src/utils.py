@@ -1,7 +1,6 @@
-import logging
-
-from exceptions import ParserFindTagException, NullResponseException
 from requests import RequestException
+
+from exceptions import NullResponseException, ParserFindTagException
 
 
 def get_response(session, url):
@@ -9,13 +8,8 @@ def get_response(session, url):
         response = session.get(url)
         response.encoding = 'utf-8'
         return response
-    except RequestException as error:
-        logging.exception(
-            f'Возникла ошибка при загрузке страницы {url}',
-            stack_info=True
-        )
-        raise NullResponseException(f'Отсутствует ответ от страницы {url}'
-                                    f'Ошибка соединения {error}')
+    except RequestException:
+        raise NullResponseException(f'Отсутствует ответ от страницы {url}')
 
 
 def find_tag(soup, tag, attrs=None):
