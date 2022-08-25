@@ -1,3 +1,6 @@
 class ParserFindTagException(Exception):
     """Вызывается, когда парсер не может найти тег."""
-    pass
+
+
+class NullResponseException(Exception):
+    """Вызывается, когда от url адреса не поступил ответ."""
