@@ -3,25 +3,14 @@ import re
 from urllib.parse import urljoin
 
 import requests_cache
-from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from configs import configure_argument_parser, configure_logging
 from constants import (BASE_DIR, DOWNLOADS_URL, EXPECTED_STATUS, MAIN_DOC_URL,
-                       PEP_ZERO_URL, WHATS_NEW_URL)
+                       MAIN_ERROR_LOG, PEP_ZERO_URL, WHATS_NEW_URL)
 from exceptions import ParserFindTagException
 from outputs import control_output
-from utils import find_tag, get_response
-
-
-def make_soup(session, url):
-    response = session.get(url)
-    response.encoding = 'utf-8'
-    response = get_response(session, url)
-    if response is None:
-        return
-    soup = BeautifulSoup(response.text, features='lxml')
-    return soup
+from utils import find_tag, make_soup
 
 
 def whats_new(session):
@@ -160,9 +149,9 @@ def main():
         results = MODE_TO_FUNCTION[parser_mode](session)
         if results is not None:
             control_output(results, args)
-    except Exception:
+    except Exception as e:
         logging.exception(
-            'Возникла ошибка в ходе работы парсера.', stack_info=True)
+            msg=f'{MAIN_ERROR_LOG} {e}', stack_info=True, exc_info=True)
     logging.info('Парсер завершил работу.')
 
 

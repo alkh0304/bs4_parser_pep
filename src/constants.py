@@ -2,6 +2,7 @@ from pathlib import Path
 
 PRETTY = 'pretty'
 FILE = 'file'
+MAIN_ERROR_LOG = 'Возникла ошибка в ходе работы парсера.'
 
 BASE_DIR = Path(__file__).parent
 LOGS_DIR = BASE_DIR / 'logs'

@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from requests import RequestException
 
 from exceptions import NullResponseException, ParserFindTagException
@@ -17,3 +18,7 @@ def find_tag(soup, tag, attrs=None):
     if searched_tag is None:
         raise ParserFindTagException(f'Не найден тег {tag} {attrs}')
     return searched_tag
+
+
+def make_soup(session, url):
+    return BeautifulSoup(get_response(session, url).text, features='lxml')
